@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './AlertDelete.scss'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { deleteItem } from '../../../redux/actions/user';
 
 class AlertDelete extends Component {
     constructor(props) {
@@ -26,14 +27,19 @@ class AlertDelete extends Component {
         }
     }
 
+    onDeleteItem = () => {
+        this.props.onDeleteItem()
+        this.props.toggleDel()
+    }
+
     render() {
-        const { menus, onDeleteItem } = this.props
+        const { menus } = this.props
         const selectedItem = menus.filter(item => item.selected === true)
         return (
             <div className={`profile-del alert flex ${this.props.show ? 'show' : ''}`} ref={this.wrapperRef}>
                 <div className="title">{`Delete ${selectedItem[0].name}`}</div>
                 <div className="body-text t-center" id="delName">{selectedItem[0].name}</div>
-                <div className="thx-btn" id="cfmDelete" onClick={onDeleteItem}>delete</div>
+                <div className="thx-btn" id="cfmDelete" onClick={this.onDeleteItem}>delete</div>
             </div>
         );
     }
@@ -51,4 +57,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(AlertDelete)
+const mapDispatchToProps = dispatch => {
+    return {
+        onDeleteItem: () => dispatch(deleteItem())
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AlertDelete)

@@ -66,7 +66,9 @@ class ProfileList extends Component {
                         <MoveUp />
                         <MoveDown />
                     </div>
-                    <AlertDelete show={showDelete} toggleDel={this.toggleDeleteAlert} />
+                    <AlertDelete 
+                        show={showDelete} 
+                        toggleDel={this.toggleDeleteAlert} />
                 </div>
             </div>
         );
